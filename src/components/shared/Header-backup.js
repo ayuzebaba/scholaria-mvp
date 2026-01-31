@@ -53,6 +53,12 @@ const Header = () => {
                             Dashboard
                         </Link>
 
+                        {/*<Link to="/test" className="nav-item">*/}
+                        <Link to="/landing" className="nav-item">
+                            <i className="fas fa-chart-bar"></i>
+                            LAND - Counter Page
+                        </Link>
+
                         <Link to="/publicreview" className="nav-item">
                             <i className="fas fa-globe"></i>
                             Public Review

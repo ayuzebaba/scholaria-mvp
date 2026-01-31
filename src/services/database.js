@@ -252,3 +252,90 @@ export const handleNewUser = async (user) => {
     console.error('Error handling new user:', error);
   }
 };
+
+
+// ===== REVIEWS =====
+export const getPaperReviews = async (paperId) => {
+  const { data, error } = await supabase
+    .from('reviews')
+    .select(`
+      *,
+      reviewer:profiles(*)
+    `)
+    .eq('paper_id', paperId)
+    .order('created_at', { ascending: false });
+  
+  if (error) {
+    console.error('Error fetching reviews:', error);
+    return [];
+  }
+  
+  return data || [];
+};
+
+export const addReview = async (reviewData) => {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not authenticated');
+  
+  const { data, error } = await supabase
+    .from('reviews')
+    .insert([{
+      ...reviewData,
+      reviewer_id: user.id
+    }])
+    .select()
+    .single();
+  
+  if (error) {
+    console.error('Error adding review:', error);
+    throw error;
+  }
+  
+  return data;
+};
+
+export const requestReview = async (paperId, reviewerId, message, deadline) => {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not authenticated');
+  
+  const { data, error } = await supabase
+    .from('review_requests')
+    .insert([{
+      paper_id: paperId,
+      requested_from_id: reviewerId,
+      requested_by_id: user.id,
+      message,
+      deadline,
+      status: 'pending'
+    }])
+    .select()
+    .single();
+  
+  if (error) {
+    console.error('Error requesting review:', error);
+    throw error;
+  }
+  
+  return data;
+};
+
+export const getUserReviewRequests = async (userId) => {
+  const { data, error } = await supabase
+    .from('review_requests')
+    .select(`
+      *,
+      paper:papers(*),
+      requested_by:profiles!requested_by_id(*)
+    `)
+    .eq('requested_from_id', userId)
+    .eq('status', 'pending')
+    .order('created_at', { ascending: false });
+  
+  if (error) {
+    console.error('Error fetching review requests:', error);
+    return [];
+  }
+  
+  return data || [];
+};
+

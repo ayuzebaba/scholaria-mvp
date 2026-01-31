@@ -11,6 +11,10 @@ import {
   createProfileIfNotExists
 } from '../services/database';
 import { supabase } from '../services/supabase';
+import PaperReviews from '../components/research/PaperReviews';
+//import PaperReviewsSimple from '../components/research/PaperReviewsSimple';
+//import TestReviews from '../components/research/TestReviews';
+
 import '../styles/globals.css';
 
 const DashboardPage = () => {
@@ -720,6 +724,10 @@ const DashboardPage = () => {
                       <button className="btn btn-text"><i className="far fa-edit"></i> Edit</button>
                       <button className="btn btn-text"><i className="fas fa-share"></i> Share</button>
                     </div>
+                    {/* ============ ADD THIS LINE ============ */}
+                   
+                    <PaperReviews paperId={paper.id} />
+                    {/* ============ END OF ADDITION ============ */}
                   </div>
                 ))
               )}
