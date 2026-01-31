@@ -463,25 +463,24 @@ const DashboardPage = () => {
               </div>
             </div>
           </div>
-          
           <nav className="sidebar-nav">
-            <a href="#" className="active">
+            <a href="/profile" className="active">
               <i className="fas fa-user"></i>
               Profile
             </a>
-            <a href="#">
+            <a href="/profile">
               <i className="fas fa-file-alt"></i>
               My Papers ({papers.length})
             </a>
-            <a href="#">
+            <a href="/network">
               <i className="fas fa-users"></i>
               Collaborators
             </a>
-            <a href="#">
+            <a href="/publicreview">
               <i className="fas fa-star"></i>
               Reviews
             </a>
-            <a href="#">
+            <a href="/profile">
               <i className="fas fa-cog"></i>
               Settings
             </a>

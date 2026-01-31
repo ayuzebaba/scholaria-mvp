@@ -77,7 +77,7 @@ const Header = () => {
                     <span className="user-name">
                         {getUserDisplayName()}
                     </span>
-                    <a href="#" className="user-menu-logout" onClick={(e) => {
+                    <a href="/" className="user-menu-logout" onClick={(e) => {
                         e.preventDefault();
                         handleLogout();
                     }}>
